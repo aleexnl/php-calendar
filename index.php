@@ -20,13 +20,13 @@
         </tr>
         <?php
         echo "<tr>";
-        $firstDay = date("w", mktime(0, 0, 0, 1, 1, 2020));
+        $firstDay = date("w", mktime(0, 0, 0, date("n"), 1, date("y")));
         $dayCounter = 1;
         for ($counter = 0; $counter < $firstDay - 1; $counter++) { 
             echo "<td></td>";
             $dayCounter += 1;
         }
-        for ($numDay=1; $numDay < 31; $numDay++) {
+        for ($numDay=1; $numDay < date("t", mktime(0, 0, 0, date("n"), 1, date("y"))); $numDay++) {
             echo "<td>";
             echo "<div>$numDay</div>";
             echo "<div><textarea></textarea></div>";
