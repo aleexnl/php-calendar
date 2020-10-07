@@ -26,7 +26,8 @@
             echo "<td></td>";
             $dayCounter += 1;
         }
-        for ($numDay=1; $numDay < date("t", mktime(0, 0, 0, date("n"), 1, date("y"))); $numDay++) {
+        $lastMonthDay = date("t", mktime(0, 0, 0, date("n"), 1, date("y")));
+        for ($numDay=1; $numDay < $lastMonthDay; $numDay++) {
             echo "<td>";
             echo "<div>$numDay</div>";
             echo "<div><textarea></textarea></div>";
