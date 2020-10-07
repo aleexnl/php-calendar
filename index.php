@@ -19,24 +19,26 @@
             ?>
         </tr>
         <?php
-        echo "<tr>";
-        $firstDay = date("w", mktime(0, 0, 0, date("n"), 1, date("y")));
-        $dayCounter = 1;
-        for ($counter = 0; $counter < $firstDay - 1; $counter++) { 
-            echo "<td></td>";
-            $dayCounter += 1;
-        }
-        $lastMonthDay = date("t", mktime(0, 0, 0, date("n"), 1, date("y")));
-        for ($numDay=1; $numDay < $lastMonthDay; $numDay++) {
-            echo "<td>";
-            echo "<div>$numDay</div>";
-            echo "<div><textarea></textarea></div>";
-            echo "</td>";
-            if ($dayCounter % 7 == 0) {
-                echo "</tr><tr>";
+            echo "<tr>";
+            
+            $firstDay = date("w", mktime(0, 0, 0, date("n"), 1, date("y")));
+            $dayCounter = 1;
+            for ($counter = 0; $counter < $firstDay - 1; $counter++) { 
+                echo "<td></td>";
+                $dayCounter += 1;
             }
-            $dayCounter += 1;
-        }
+
+            $lastMonthDay = date("t", mktime(0, 0, 0, date("n"), 1, date("y")));
+            for ($numDay=1; $numDay < $lastMonthDay; $numDay++) {
+                echo "<td>";
+                echo "<div>$numDay</div>";
+                echo "<div><textarea></textarea></div>";
+                echo "</td>";
+                if ($dayCounter % 7 == 0) {
+                    echo "</tr><tr>";
+                }
+                $dayCounter += 1;
+            }
         ?>
     </table>
 </body>
