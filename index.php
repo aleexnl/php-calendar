@@ -20,19 +20,21 @@
         <?php
         echo "<tr>";
         $firstDay = date("w", mktime(0, 0, 0, 1, 1, 2020));
+        $dayCounter = 1;
         for ($counter = 0; $counter < $firstDay - 1; $counter++) { 
             echo "<td></td>";
+            $dayCounter += 1;
         }
         for ($numDay=1; $numDay < 31; $numDay++) {
             echo "<td>";
             echo "<div>$numDay</div>";
             echo "<div><textarea></textarea></div>";
             echo "</td>";
-            if ($numDay % 7 == 0) {
+            if ($dayCounter % 7 == 0) {
                 echo "</tr><tr>";
             }
+            $dayCounter += 1;
         }
-        echo date("w", mktime(0, 0, 0, 10, 1, 2020))
         ?>
     </table>
 </body>
