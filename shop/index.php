@@ -12,11 +12,13 @@
 <body>
     <?php
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $catalogueFile = fopen("catalogue.txt", "a") or die("Unable to find catalogue!");
-        $newProduct = $_POST['productName'] . ";" . $_POST['productDesc'] . ";" . $_POST['productPrice'];;
-        fwrite($catalogueFile, "\n");
-        fwrite($catalogueFile, $newProduct);
-        fclose($catalogueFile);
+        if (isset($_POST['productName']) && isset($_POST['productDesc']) && isset($_POST['productPrice'])) {
+            $catalogueFile = fopen("catalogue.txt", "a") or die("Unable to find catalogue!");
+            $newProduct = $_POST['productName'] . ";" . $_POST['productDesc'] . ";" . $_POST['productPrice'];
+            fwrite($catalogueFile, "\n");
+            fwrite($catalogueFile, $newProduct);
+            fclose($catalogueFile);
+        }
     }
     ?>
     <?php
@@ -24,8 +26,8 @@
     $catalogue = [];
     while (!feof($catalogueFile)) {
         $catalogLine = fgets($catalogueFile);
-        if (strlen($catalogLine) > 3) {
-            $product = explode(';', $catalogLine);
+        $product = explode(';', $catalogLine);
+        if (count($product) >= 3) {
             array_push($catalogue, $product);
         }
     }
