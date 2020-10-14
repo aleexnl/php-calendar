@@ -7,37 +7,53 @@
     <title>Shop</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://kit.fontawesome.com/b17b075250.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
     <?php
+    $file_lines = file("catalogue.txt");
+
+    // GET METHOD
+    if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+        if (isset($_GET['line'])) {
+            unset($file_lines[$_GET['line']]);
+            update_file($file_lines);
+        }
+    }
+    // POST METHOD
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        if (isset($_POST['productName']) && isset($_POST['productDesc']) && isset($_POST['productPrice'])) {
-            $catalogueFile = fopen("catalogue.txt", "a") or die("Unable to find catalogue!");
-            $newProduct = $_POST['productName'] . ";" . $_POST['productDesc'] . ";" . $_POST['productPrice'];
-            fwrite($catalogueFile, "\n");
-            fwrite($catalogueFile, $newProduct);
-            fclose($catalogueFile);
+        if (isset($_POST['productName'], $_POST['productDesc'], $_POST['productPrice'])) {
+            $newProduct = $_POST['productName'] . ";" . $_POST['productDesc'] . ";" . $_POST['productPrice'] . "\n";
+            array_push($file_lines, $newProduct);
+            update_file($file_lines);
         }
     }
     ?>
     <?php
-    $catalogueFile = fopen("catalogue.txt", "r") or die("Unable to find catalogue!");
-    $catalogue = [];
-    while (!feof($catalogueFile)) {
-        $catalogLine = fgets($catalogueFile);
-        $product = explode(';', $catalogLine);
-        if (count($product) >= 3) {
-            array_push($catalogue, $product);
+    function update_file($file_lines)
+    {
+        $catalogueFile = fopen("catalogue.txt", "w") or die("Unable to find catalogue!");
+        foreach ($file_lines as $key => $file_line) {
+            fwrite($catalogueFile, $file_line);
         }
     }
-    fclose($catalogueFile);
+    ?>
+    <?php
+    $catalogue = [];
+    foreach ($file_lines as $key => $file_line) {
+        $product = explode(';', $file_line);
+        array_push($product, $key);
+        array_push($catalogue, $product);
+    }
+
     ?>
     <table class="table table-striped">
         <thead class="thead-dark">
             <th>Producto</th>
             <th>Descripcion</th>
             <th>Precio</th>
+            <th>Actions</th>
         </thead>
         <tbody>
             <?php
@@ -50,12 +66,14 @@
                 echo "<td>$product[0]</td>";
                 echo "<td>$product[1]</td>";
                 echo "<td>", number_format((float)$product[2], 2, ",", " ") . " €", "</td>";
+                echo "<td><a class=\"btn btn-danger\" href=index.php?line=$product[3]><span class=\"fas fa-trash\"></span> Delete</a></td>";
                 echo "</tr>";
             }
             ?>
             <tr>
                 <td>
                     <a class="btn btn-primary" href=pages/new-product.php>Add product</a> </td> <td></td>
+                <td></td>
                 <td></td>
             </tr>
         </tbody>
