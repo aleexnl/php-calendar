@@ -1,30 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shop</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
     <?php
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $catalogueFile = fopen("catalogue.txt", "a") or die("Unable to find catalogue!");
-            $newProduct = $_POST['productName'].";".$_POST['productDesc'].";".$_POST['productPrice'];;
-            fwrite($catalogueFile, "\n");
-            fwrite($catalogueFile, $newProduct);
-            fclose($catalogueFile);
-        }
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $catalogueFile = fopen("catalogue.txt", "a") or die("Unable to find catalogue!");
+        $newProduct = $_POST['productName'] . ";" . $_POST['productDesc'] . ";" . $_POST['productPrice'];;
+        fwrite($catalogueFile, "\n");
+        fwrite($catalogueFile, $newProduct);
+        fclose($catalogueFile);
+    }
     ?>
     <?php
-        $catalogueFile = fopen("catalogue.txt", "r") or die("Unable to find catalogue!");
-        $catalogue = [];
-        while(!feof($catalogueFile)) {
-            $catalogLine = fgets($catalogueFile);
+    $catalogueFile = fopen("catalogue.txt", "r") or die("Unable to find catalogue!");
+    $catalogue = [];
+    while (!feof($catalogueFile)) {
+        $catalogLine = fgets($catalogueFile);
+        if (strlen($catalogLine) > 3) {
             $product = explode(';', $catalogLine);
             array_push($catalogue, $product);
         }
-        fclose($catalogueFile);
+    }
+    fclose($catalogueFile);
     ?>
     <table class="table table-striped">
         <thead class="thead-dark">
@@ -35,24 +40,20 @@
         <tbody>
             <?php
             foreach ($catalogue as $key => $product) {
-                echo "<tr>";
-                echo "<td>";
-                echo $product[0];
-                echo "</td>";
-                echo "<td>";
-                echo $product[1];
-                echo "</td>";
-                echo "<td>";
-                echo number_format((float)$product[2], 2, ",", " ")." €";
-                echo "</td>";
+                if ($key == count($catalogue) - 1) {
+                    echo "<tr class=last-item>";
+                } else {
+                    echo "<tr>";
+                }
+                echo "<td>$product[0]</td>";
+                echo "<td>$product[1]</td>";
+                echo "<td>", number_format((float)$product[2], 2, ",", " ") . " €", "</td>";
                 echo "</tr>";
             }
             ?>
             <tr>
                 <td>
-                    <a class="btn btn-primary" href=pages/new-product.php>Add product</a>
-                </td>
-                <td></td>
+                    <a class="btn btn-primary" href=pages/new-product.php>Add product</a> </td> <td></td>
                 <td></td>
             </tr>
         </tbody>
@@ -61,4 +62,5 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="js/bootstrap.min.js"></script>
 </body>
+
 </html>
