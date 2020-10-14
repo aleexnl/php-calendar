@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shop</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css">
     <script src="https://kit.fontawesome.com/b17b075250.js" crossorigin="anonymous"></script>
 </head>
 
@@ -48,39 +47,34 @@
     }
 
     ?>
-    <table class="table table-striped">
-        <thead class="thead-dark">
-            <th>Producto</th>
-            <th>Descripcion</th>
-            <th>Precio</th>
-            <th>Actions</th>
-        </thead>
-        <tbody>
-            <?php
-            foreach ($catalogue as $key => $product) {
-                if ($key == count($catalogue) - 1) {
-                    echo "<tr class=last-item>";
-                } else {
-                    echo "<tr>";
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <caption>Products list</caption>
+            <thead class="thead-dark">
+                <th>Producto</th>
+                <th>Descripcion</th>
+                <th>Precio</th>
+                <th>Actions</th>
+            </thead>
+            <tbody>
+                <?php
+                foreach ($catalogue as $key => $product) {
+                    if ($key == count($catalogue) - 1) {
+                        echo "<tr class=table-primary>";
+                    } else {
+                        echo "<tr>";
+                    }
+                    echo "<td>$product[0]</td>";
+                    echo "<td>$product[1]</td>";
+                    echo "<td>", number_format((float)$product[2], 2, ",", " ") . " €", "</td>";
+                    echo "<td><a class=\"btn btn-danger\" href=index.php?line=$product[3]><span class=\"fas fa-trash\"></span> Delete</a></td>";
+                    echo "</tr>";
                 }
-                echo "<td>$product[0]</td>";
-                echo "<td>$product[1]</td>";
-                echo "<td>", number_format((float)$product[2], 2, ",", " ") . " €", "</td>";
-                echo "<td><a class=\"btn btn-danger\" href=index.php?line=$product[3]><span class=\"fas fa-trash\"></span> Delete</a></td>";
-                echo "</tr>";
-            }
-            ?>
-            <tr>
-                <td>
-                    <a class="btn btn-primary" href=pages/new-product.php>Add product</a> </td> <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-        </tbody>
-    </table>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="js/bootstrap.min.js"></script>
+                ?>
+                <tr>
+                    <td colspan="4"><a class="btn btn-primary" href=pages/new-product.php>Add product</a> </td> </tr> </tbody> </table> </div> <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+                            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+                            <script src="js/bootstrap.min.js"></script>
 </body>
 
 </html>
