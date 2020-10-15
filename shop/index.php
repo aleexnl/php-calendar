@@ -47,6 +47,26 @@
     }
 
     ?>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="#">Shop</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="#"><span class="fas fa-home"></span> Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="pages/new-product.php"><span class="fas fa-plus"></span> Add product</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="pages/shopping-cart.php"><span class="fas fa-shopping-cart"></span> Cart</a>
+            </li>
+            </ul>
+        </div>
+    </nav>
+
     <div class="table-responsive">
         <table class="table table-hover">
             <caption>Products list</caption>
@@ -59,11 +79,6 @@
             <tbody>
                 <?php
                 foreach ($catalogue as $key => $product) {
-                    if ($key == count($catalogue) - 1) {
-                        echo "<tr class=table-primary>";
-                    } else {
-                        echo "<tr>";
-                    }
                     echo "<td>$product[0]</td>";
                     echo "<td>$product[1]</td>";
                     echo "<td>", number_format((float)$product[2], 2, ",", " ") . " €", "</td>";
@@ -71,10 +86,34 @@
                     echo "</tr>";
                 }
                 ?>
-                <tr>
-                    <td colspan="4"><a class="btn btn-primary" href=pages/new-product.php>Add product</a> </td> </tr> </tbody> </table> </div> <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-                            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-                            <script src="js/bootstrap.min.js"></script>
+                <tr class=table-primary>
+                    <form action="index.php" method="post">
+                        <td>            
+                            <input type="text" class="form-control" id="productName" placeholder="Your product" name="productName" required>
+                        </td>
+                        <td>            
+                            <textarea class="form-control" id="productDesc" rows="1" aria-describedby="productDescHelp" placeholder="Cool description" name="productDesc" required></textarea>
+                        </td>
+                        <td>            
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">€</div>
+                                </div>
+                            <input type="number" class="form-control" id="productPrice" placeholder="1,50" name="productPrice" required>
+                            </div>                    
+                        </td>
+                        <td>
+                            <button type="submit" class="btn btn-primary"><span class="fas fa-plus"></span> Add product</button> 
+                        </td> 
+                    </form>
+                </tr>
+            </tbody> 
+        </table> 
+    </div> 
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="js/bootstrap.min.js"></script>
 </body>
 
 </html>
