@@ -1,8 +1,0 @@
-Banan;Canarian;1
-Banan;Canarian;1
-Banan;Canarian;1
-Banan;Canarian;1
-Banan;Canarian;1
-Banan;Canarian;1
-Manzana;Una manzana freska;123
-Manzana;Una manzana freska;123
