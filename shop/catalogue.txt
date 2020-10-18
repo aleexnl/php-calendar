@@ -1,0 +1,3 @@
+Platano;de canarias;123
+Manzana;de davinci;122
+Melon;frsko;123

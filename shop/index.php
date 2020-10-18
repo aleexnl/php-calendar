@@ -103,7 +103,7 @@
                             </div>                    
                         </td>
                         <td>
-                            <button type="submit" class="btn btn-primary"><span class="fas fa-plus"></span> Add product</button> 
+                            <button type="submit" class="btn btn-primary"><span class="fas fa-plus"></span> Add</button> 
                         </td> 
                     </form>
                 </tr>
